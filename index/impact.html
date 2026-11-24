@@ -1,0 +1,1234 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My Impact — NextEra Energy</title>
+<meta name="description" content="Track your personal carbon reduction, cumulative eco-travel records, and complete eco-friendly challenges on NextEra Energy." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+/* ══════════════════════════════════════════════
+   DESIGN TOKENS
+══════════════════════════════════════════════ */
+:root {
+  --bg:     #0d1117;
+  --bg2:    #161b22;
+  --bg3:    #1c2230;
+  --ink:    #e6edf3;
+  --ink2:   #8b949e;
+  --ink3:   #6e7681;
+  --brand:  #0ea472;
+  --brand2: #0bc584;
+  --leaf:   #34d399;
+  --card:   #161b22;
+  --line:   #30363d;
+  --good:   #34d399;
+  --mod:    #f59e0b;
+  --bad:    #f97316;
+  --vbad:   #ef4444;
+  --purple: #a78bfa;
+  --blue:   #60a5fa;
+  --pink:   #f472b6;
+  --gold:   #fbbf24;
+  --glow:   rgba(14,164,114,.25);
+  --r:      16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--line);border-radius:99px}
+
+/* ══════════════════════════════════════════════
+   LAYOUT
+══════════════════════════════════════════════ */
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px}
+
+/* ══════════════════════════════════════════════
+   HEADER
+══════════════════════════════════════════════ */
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(13,17,23,.88);
+  backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px;gap:16px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:-.03em;font-size:19px}
+.logo-mark{
+  width:36px;height:36px;border-radius:10px;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  display:grid;place-items:center;
+  box-shadow:0 0 16px var(--glow);
+}
+.logo .g{background:linear-gradient(90deg,var(--leaf),#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.nav ul{display:flex;gap:28px;list-style:none;font-size:14px;color:var(--ink2)}
+.nav ul a{transition:color .2s;font-weight:500}
+.nav ul a:hover,.nav ul a.active{color:var(--leaf)}
+.btn{
+  display:inline-flex;align-items:center;gap:8px;
+  border:0;border-radius:999px;padding:10px 22px;
+  font:600 14px 'Inter',sans-serif;cursor:pointer;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  color:#fff;
+  box-shadow:0 0 20px var(--glow);
+  transition:transform .2s,box-shadow .2s;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 6px 30px var(--glow)}
+@media(max-width:720px){.nav ul{display:none}}
+
+/* ══════════════════════════════════════════════
+   PAGE HERO
+══════════════════════════════════════════════ */
+.page-hero{
+  padding:60px 0 48px;
+  display:grid;grid-template-columns:1fr auto;gap:32px;align-items:end;
+}
+.page-hero .eyebrow{
+  display:inline-flex;gap:8px;align-items:center;
+  font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--leaf);background:rgba(52,211,153,.1);
+  padding:5px 14px;border-radius:999px;border:1px solid rgba(52,211,153,.2);
+  margin-bottom:16px;
+}
+.page-hero h1{font-size:clamp(32px,5vw,52px);font-weight:900;letter-spacing:-.04em;line-height:1.05}
+.page-hero h1 em{font-style:normal;background:linear-gradient(135deg,var(--leaf),#6ee7b7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-hero p{margin-top:12px;color:var(--ink2);font-size:16px;max-width:52ch}
+.level-badge{
+  flex-shrink:0;
+  background:var(--bg2);border:1px solid var(--line);border-radius:20px;
+  padding:20px 24px;text-align:center;min-width:150px;
+}
+.level-badge .lvl-num{font-size:42px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--gold),#fb923c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.level-badge .lvl-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--ink2);margin-top:2px}
+.level-badge .lvl-name{font-size:14px;font-weight:700;color:var(--gold);margin-top:6px}
+.xp-bar-wrap{margin-top:10px;background:var(--bg3);border-radius:999px;height:6px;overflow:hidden}
+.xp-bar{height:100%;border-radius:999px;background:linear-gradient(90deg,var(--gold),#fb923c);transition:width 1.2s ease}
+.xp-label{font-size:11px;color:var(--ink3);margin-top:5px}
+@media(max-width:680px){.page-hero{grid-template-columns:1fr}.level-badge{display:none}}
+
+/* ══════════════════════════════════════════════
+   SECTION HEADERS
+══════════════════════════════════════════════ */
+.sec{padding:40px 0}
+.sec-title{display:flex;align-items:center;gap:10px;font-size:22px;font-weight:800;letter-spacing:-.03em;margin-bottom:6px}
+.sec-title .ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex-shrink:0}
+.sec-sub{font-size:14px;color:var(--ink2);margin-bottom:24px}
+
+/* ══════════════════════════════════════════════
+   STAT CARDS (CARBON REDUCTION)
+══════════════════════════════════════════════ */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px;margin-bottom:28px}
+.stat-card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:24px 22px;
+  position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+}
+.stat-card:hover{transform:translateY(-3px);box-shadow:0 12px 36px rgba(0,0,0,.4)}
+.stat-card::before{
+  content:'';position:absolute;inset:0;
+  opacity:0.04;border-radius:20px;
+}
+.stat-card.green::before{background:radial-gradient(circle at top right,var(--good),transparent 60%)}
+.stat-card.amber::before{background:radial-gradient(circle at top right,var(--mod),transparent 60%)}
+.stat-card.blue::before{background:radial-gradient(circle at top right,var(--blue),transparent 60%)}
+.stat-card.purple::before{background:radial-gradient(circle at top right,var(--purple),transparent 60%)}
+.stat-card.pink::before{background:radial-gradient(circle at top right,var(--pink),transparent 60%)}
+.stat-icon{
+  width:40px;height:40px;border-radius:12px;
+  display:grid;place-items:center;margin-bottom:16px;
+}
+.stat-card.green .stat-icon{background:rgba(52,211,153,.12);color:var(--good)}
+.stat-card.amber .stat-icon{background:rgba(245,158,11,.12);color:var(--mod)}
+.stat-card.blue  .stat-icon{background:rgba(96,165,250,.12);color:var(--blue)}
+.stat-card.purple .stat-icon{background:rgba(167,139,250,.12);color:var(--purple)}
+.stat-card.pink .stat-icon{background:rgba(244,114,182,.12);color:var(--pink)}
+.stat-value{font-size:36px;font-weight:900;letter-spacing:-.04em;line-height:1}
+.stat-card.green .stat-value{color:var(--good)}
+.stat-card.amber .stat-value{color:var(--mod)}
+.stat-card.blue  .stat-value{color:var(--blue)}
+.stat-card.purple .stat-value{color:var(--purple)}
+.stat-card.pink  .stat-value{color:var(--pink)}
+.stat-unit{font-size:14px;font-weight:600;color:var(--ink2);margin-left:3px}
+.stat-label{font-size:13px;color:var(--ink2);margin-top:6px;font-weight:500}
+.stat-delta{
+  margin-top:12px;font-size:12px;font-weight:600;
+  display:inline-flex;align-items:center;gap:5px;
+  padding:3px 10px;border-radius:999px;
+}
+.stat-delta.up{color:var(--good);background:rgba(52,211,153,.1)}
+.stat-delta.down{color:var(--vbad);background:rgba(239,68,68,.1)}
+
+/* ══════════════════════════════════════════════
+   CARBON CHART SECTION
+══════════════════════════════════════════════ */
+.charts-row{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;margin-top:20px}
+.chart-card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:24px;
+}
+.chart-card h3{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.chart-card p{font-size:12px;color:var(--ink2);margin-bottom:20px}
+.chart-wrap-lg{position:relative;height:220px}
+.chart-wrap-sm{position:relative;height:220px}
+.donut-center{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+  text-align:center;pointer-events:none;
+}
+.donut-center b{display:block;font-size:28px;font-weight:900;letter-spacing:-.03em;color:var(--leaf)}
+.donut-center span{font-size:11px;color:var(--ink2);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.chart-legend{display:flex;flex-wrap:wrap;gap:12px;margin-top:14px}
+.chart-legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink2)}
+.chart-legend-item i{width:10px;height:10px;border-radius:3px;flex-shrink:0}
+@media(max-width:760px){.charts-row{grid-template-columns:1fr}}
+
+/* ══════════════════════════════════════════════
+   TRAVEL RECORDS
+══════════════════════════════════════════════ */
+.records-header{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:28px}
+.rec-card{
+  background:var(--bg2);border:1px solid var(--line);border-radius:16px;
+  padding:18px;display:flex;flex-direction:column;gap:4px;
+}
+.rec-card b{font-size:26px;font-weight:800;letter-spacing:-.03em;color:var(--ink)}
+.rec-card span{font-size:12px;color:var(--ink2);font-weight:500}
+
+.trips-table-wrap{border-radius:16px;border:1px solid var(--line);overflow:hidden}
+.trips-table{width:100%;border-collapse:collapse;font-size:14px;background:var(--card)}
+.trips-table th,.trips-table td{padding:13px 16px;text-align:left;border-bottom:1px solid var(--line)}
+.trips-table th{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);background:var(--bg2);font-weight:600}
+.trips-table tbody tr:last-child td{border-bottom:0}
+.trips-table tbody tr{transition:background .15s}
+.trips-table tbody tr:hover{background:var(--bg2)}
+.mode-pill{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px;
+}
+.mode-metro{background:rgba(96,165,250,.12);color:var(--blue)}
+.mode-bus{background:rgba(52,211,153,.12);color:var(--good)}
+.mode-bike{background:rgba(167,139,250,.12);color:var(--purple)}
+.mode-ev{background:rgba(14,164,114,.12);color:var(--brand2)}
+.mode-walk{background:rgba(244,114,182,.12);color:var(--pink)}
+.mode-scooter{background:rgba(245,158,11,.12);color:var(--mod)}
+.saved-cell{color:var(--good);font-weight:700}
+.co2-cell{color:var(--leaf);font-weight:600}
+
+/* ══════════════════════════════════════════════
+   CHALLENGES
+══════════════════════════════════════════════ */
+.challenges-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+.challenge-card{
+  background:var(--card);border:1px solid var(--line);border-radius:20px;
+  padding:22px;position:relative;overflow:hidden;
+  transition:transform .2s,box-shadow .2s;
+}
+.challenge-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(0,0,0,.4)}
+.challenge-card.completed{border-color:rgba(52,211,153,.4);box-shadow:0 0 20px rgba(52,211,153,.08)}
+.challenge-card.locked{opacity:.55;pointer-events:none}
+.challenge-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px}
+.challenge-emoji{
+  width:48px;height:48px;border-radius:14px;
+  display:grid;place-items:center;font-size:22px;flex-shrink:0;
+  background:var(--bg3);border:1px solid var(--line);
+}
+.challenge-card.completed .challenge-emoji{background:rgba(52,211,153,.1);border-color:rgba(52,211,153,.3)}
+.challenge-info h3{font-size:15px;font-weight:700;letter-spacing:-.01em;margin-bottom:3px}
+.challenge-info p{font-size:12px;color:var(--ink2);line-height:1.5}
+.challenge-status{
+  margin-left:auto;flex-shrink:0;font-size:11px;font-weight:700;
+  padding:3px 10px;border-radius:999px;
+}
+.status-active{background:rgba(245,158,11,.12);color:var(--mod)}
+.status-done{background:rgba(52,211,153,.12);color:var(--good)}
+.status-locked{background:var(--bg3);color:var(--ink3)}
+
+.prog-bar-wrap{background:var(--bg3);border-radius:999px;height:8px;overflow:hidden;margin:12px 0 6px}
+.prog-bar{height:100%;border-radius:999px;transition:width 1.4s cubic-bezier(.34,1.56,.64,1)}
+.prog-labels{display:flex;justify-content:space-between;font-size:11px;color:var(--ink2)}
+
+.reward-row{display:flex;align-items:center;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.reward-row span{font-size:12px;color:var(--ink2)}
+.xp-chip{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;
+  background:rgba(251,191,36,.12);color:var(--gold);
+}
+.badge-chip{
+  display:inline-flex;align-items:center;gap:4px;
+  font-size:11px;font-weight:700;padding:3px 9px;border-radius:999px;
+  background:rgba(167,139,250,.12);color:var(--purple);
+}
+
+/* ══════════════════════════════════════════════
+   BADGES SECTION
+══════════════════════════════════════════════ */
+.badges-grid{display:flex;flex-wrap:wrap;gap:16px}
+.badge-card{
+  background:var(--bg2);border:1px solid var(--line);border-radius:18px;
+  padding:20px 18px;text-align:center;min-width:120px;max-width:140px;
+  flex:1;
+  transition:transform .2s;
+}
+.badge-card:hover{transform:translateY(-3px)}
+.badge-card.earned{border-color:rgba(251,191,36,.3);box-shadow:0 0 16px rgba(251,191,36,.08)}
+.badge-card.locked{opacity:.4;filter:grayscale(1)}
+.badge-icon{font-size:36px;margin-bottom:10px;display:block}
+.badge-card b{display:block;font-size:12px;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.badge-card span{font-size:11px;color:var(--ink2)}
+.badge-earned-label{
+  margin-top:8px;font-size:10px;font-weight:700;text-transform:uppercase;
+  letter-spacing:.06em;color:var(--gold);
+}
+
+/* ══════════════════════════════════════════════
+   STREAK BANNER
+══════════════════════════════════════════════ */
+.streak-banner{
+  background:linear-gradient(135deg,#1a1200,#2a1a00);
+  border:1px solid rgba(251,191,36,.2);
+  border-radius:20px;padding:28px 32px;
+  display:flex;align-items:center;gap:24px;
+  margin-bottom:40px;
+  position:relative;overflow:hidden;
+}
+.streak-banner::before{
+  content:'';position:absolute;top:-50px;right:-50px;
+  width:200px;height:200px;border-radius:50%;
+  background:radial-gradient(circle,rgba(251,191,36,.12),transparent 70%);
+}
+.streak-flame{font-size:52px;line-height:1;flex-shrink:0;animation:flicker 1.5s ease-in-out infinite alternate}
+@keyframes flicker{from{transform:scale(1) rotate(-2deg)}to{transform:scale(1.08) rotate(2deg)}}
+.streak-info h3{font-size:20px;font-weight:800;letter-spacing:-.02em}
+.streak-info h3 span{color:var(--gold)}
+.streak-info p{font-size:13px;color:rgba(255,255,255,.5);margin-top:4px}
+.streak-days{
+  margin-left:auto;flex-shrink:0;text-align:center;
+  background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);
+  border-radius:16px;padding:14px 20px;
+}
+.streak-days b{display:block;font-size:40px;font-weight:900;letter-spacing:-.04em;color:var(--gold);line-height:1}
+.streak-days span{font-size:11px;color:rgba(251,191,36,.7);font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+@media(max-width:600px){.streak-banner{flex-direction:column;text-align:center}.streak-days{margin-left:0}}
+
+/* ══════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════ */
+footer{border-top:1px solid var(--line);padding:28px 0;margin-top:40px}
+footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--ink2)}
+footer a{color:var(--leaf)}
+
+/* ══════════════════════════════════════════════
+   ANIMATIONS
+══════════════════════════════════════════════ */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .5s ease forwards}
+.fade-up-d1{animation-delay:.05s;opacity:0}
+.fade-up-d2{animation-delay:.10s;opacity:0}
+.fade-up-d3{animation-delay:.15s;opacity:0}
+.fade-up-d4{animation-delay:.20s;opacity:0}
+.fade-up-d5{animation-delay:.25s;opacity:0}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ HEADER ═══════════════ -->
+<style>
+.user-chip{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--bg2);border:1px solid var(--line);
+  border-radius:999px;padding:6px 14px 6px 8px;
+  font-size:13px;font-weight:600;
+}
+.user-avatar{
+  width:30px;height:30px;border-radius:50%;
+  background:linear-gradient(135deg,var(--brand),var(--brand2));
+  display:grid;place-items:center;font-size:15px;
+  flex-shrink:0;
+}
+.logout-btn{
+  background:none;border:1px solid var(--line);border-radius:999px;
+  padding:6px 14px;font:600 13px 'Inter',sans-serif;
+  color:var(--ink2);cursor:pointer;transition:all .2s;
+}
+.logout-btn:hover{border-color:var(--vbad);color:var(--vbad);}
+</style>
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="index.html" aria-label="NextEra Energy home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg>
+      </span>
+      <span class="g">NextEra</span> Energy
+    </a>
+    <nav aria-label="Main"><ul>
+      <li><a href="index.html">Eco Route</a></li>
+      <li><a href="index.html#affordable">Routes</a></li>
+      <li><a href="impact.html" class="active">My Impact</a></li>
+    </ul></nav>
+    <div style="display:flex;align-items:center;gap:10px">
+      <span class="user-chip" id="user-chip">
+        <span class="user-avatar" id="user-avatar">🌿</span>
+        <span id="user-first-name">...</span>
+      </span>
+      <button class="logout-btn" onclick="logout()" aria-label="Sign out">Sign out</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+
+    <!-- ═══════════════ PAGE HERO ═══════════════ -->
+    <div class="page-hero fade-up">
+      <div>
+        <span class="eyebrow">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Your Personal Impact Dashboard
+        </span>
+        <h1 id="page-title">Your <em>Green</em> Impact</h1>
+        <p id="page-sub">Every eco-friendly trip counts. Track your carbon savings, travel milestones, and complete challenges to level up your green journey.</p>
+      </div>
+      <div class="level-badge fade-up-d1">
+        <div class="lvl-num" id="lvl-num">7</div>
+        <div class="lvl-label">Level</div>
+        <div class="lvl-name" id="lvl-name">Eco Warrior</div>
+        <div class="xp-bar-wrap"><div class="xp-bar" id="xp-bar" style="width:0%"></div></div>
+        <div class="xp-label" id="xp-label">2,340 / 3,000 XP</div>
+      </div>
+    </div>
+
+    <!-- ═══════════════ STREAK ═══════════════ -->
+    <div class="streak-banner fade-up fade-up-d2" aria-label="Current streak">
+      <span class="streak-flame" aria-hidden="true">🔥</span>
+      <div class="streak-info">
+        <h3>You're on a <span id="streak-count">12-day</span> Green Streak!</h3>
+        <p>You've chosen eco-friendly transport every day this week. Keep it going — 3 more days to unlock the "Fortnight Hero" badge!</p>
+      </div>
+      <div class="streak-days" aria-label="12 day streak">
+        <b id="streak-num">12</b>
+        <span>Day Streak</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════ SECTION 1: CARBON REDUCTION ═══════════════ -->
+    <section class="sec" id="carbon" aria-labelledby="carbon-title">
+      <div class="sec-title">
+        <span class="ico" style="background:rgba(52,211,153,.12);color:var(--good)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+        </span>
+        <h2 id="carbon-title">My Carbon Reduction</h2>
+      </div>
+      <p class="sec-sub">Your personal CO₂ savings compared to always taking a regular auto/taxi.</p>
+
+      <div class="stat-grid">
+        <div class="stat-card green fade-up fade-up-d1">
+          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg></div>
+          <div><span class="stat-value" id="co2-saved">0</span><span class="stat-unit">kg</span></div>
+          <div class="stat-label">Total CO₂ Saved</div>
+          <span class="stat-delta up">↑ vs. always driving</span>
+        </div>
+        <div class="stat-card amber fade-up fade-up-d2">
+          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
+          <div><span class="stat-value" id="co2-month">0</span><span class="stat-unit">kg</span></div>
+          <div class="stat-label">Saved This Month</div>
+          <span class="stat-delta up">↑ 23% vs. last month</span>
+        </div>
+        <div class="stat-card blue fade-up fade-up-d3">
+          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div><span class="stat-value" id="money-saved">0</span><span class="stat-unit">₹</span></div>
+          <div class="stat-label">Total Money Saved</div>
+          <span class="stat-delta up">↑ vs. auto/taxi</span>
+        </div>
+        <div class="stat-card purple fade-up fade-up-d4">
+          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
+          <div><span class="stat-value" id="trees">0</span><span class="stat-unit"></span></div>
+          <div class="stat-label">Trees-worth of CO₂ Absorbed</div>
+          <span class="stat-delta up">↑ equivalent impact</span>
+        </div>
+        <div class="stat-card pink fade-up fade-up-d5">
+          <div class="stat-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+          <div><span class="stat-value" id="rank-pct">0</span><span class="stat-unit">%</span></div>
+          <div class="stat-label">Greener Than Your City</div>
+          <span class="stat-delta up">Top performer 🎉</span>
+        </div>
+      </div>
+
+      <!-- Carbon trend + donut charts -->
+      <div class="charts-row">
+        <div class="chart-card">
+          <h3>Monthly CO₂ Reduction</h3>
+          <p>Kilograms of CO₂ saved each month vs. driving baseline</p>
+          <div class="chart-wrap-lg"><canvas id="carbon-trend-chart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <h3>Travel Mode Breakdown</h3>
+          <p>How you've been getting around</p>
+          <div class="chart-wrap-sm" style="position:relative">
+            <canvas id="mode-donut-chart"></canvas>
+            <div class="donut-center">
+              <b id="donut-center-val">187</b>
+              <span>Trips</span>
+            </div>
+          </div>
+          <div class="chart-legend" id="mode-legend"></div>
+        </div>
+      </div>
+    </section>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:8px 0">
+
+    <!-- ═══════════════ SECTION 2: TRAVEL RECORDS ═══════════════ -->
+    <section class="sec" id="records" aria-labelledby="records-title">
+      <div class="sec-title">
+        <span class="ico" style="background:rgba(96,165,250,.12);color:var(--blue)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 6l6-3 6 3 6-3v15l-6 3-6-3-6 3V6z"/><path d="M9 3v15M15 6v15"/></svg>
+        </span>
+        <h2 id="records-title">Cumulative Travel Records</h2>
+      </div>
+      <p class="sec-sub">All your eco-friendly trips, milestones, and lifetime stats in one place.</p>
+
+      <div class="records-header">
+        <div class="rec-card"><b id="total-trips">187</b><span>Total Eco Trips</span></div>
+        <div class="rec-card"><b id="total-km">2,341</b><span>Total km Traveled</span></div>
+        <div class="rec-card"><b id="total-hrs">312</b><span>Hours in Eco Transit</span></div>
+        <div class="rec-card"><b id="total-saved-inr">₹41,820</b><span>Total ₹ Saved</span></div>
+        <div class="rec-card"><b id="best-streak">18</b><span>Best Streak (days)</span></div>
+        <div class="rec-card"><b id="fav-mode">🚇 Metro</b><span>Favourite Mode</span></div>
+      </div>
+
+      <div class="trips-table-wrap">
+        <table class="trips-table" aria-label="Recent eco trips">
+          <thead><tr>
+            <th scope="col">Date</th>
+            <th scope="col">Route</th>
+            <th scope="col">Mode</th>
+            <th scope="col">Distance</th>
+            <th scope="col">CO₂ Saved</th>
+            <th scope="col">₹ Saved</th>
+            <th scope="col">AQI</th>
+          </tr></thead>
+          <tbody id="trips-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <hr style="border:0;border-top:1px solid var(--line);margin:8px 0">
+
+    <!-- ═══════════════ SECTION 3: CHALLENGES ═══════════════ -->
+    <section class="sec" id="challenges" aria-labelledby="challenges-title">
+      <div class="sec-title">
+        <span class="ico" style="background:rgba(251,191,36,.12);color:var(--gold)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>
+        </span>
+        <h2 id="challenges-title">Eco-Friendly Challenges</h2>
+      </div>
+      <p class="sec-sub">Complete challenges to earn XP, badges, and unlock new levels. Challenges reset monthly.</p>
+
+      <div class="challenges-grid" id="challenges-grid"></div>
+    </section>
+
+    <!-- ═══════════════ BADGES ═══════════════ -->
+    <section class="sec" id="badges-sec" aria-labelledby="badges-title" style="padding-top:8px">
+      <div class="sec-title">
+        <span class="ico" style="background:rgba(167,139,250,.12);color:var(--purple)">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg>
+        </span>
+        <h2 id="badges-title">Earned Badges</h2>
+      </div>
+      <p class="sec-sub">Badges you've unlocked on your green journey — keep going to earn more!</p>
+      <div class="badges-grid" id="badges-grid"></div>
+    </section>
+
+  </div><!-- /wrap -->
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 NextEra Energy. Clean energy for everyone.</span>
+    <span>Stats are personalized to your account. <a href="index.html">← Back to Eco Route</a></span>
+  </div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════
+   AUTH GUARD — redirect to login if no session
+═══════════════════════════════════════════════ */
+const _raw = localStorage.getItem('nextera_session');
+if (!_raw) { window.location.href = 'login.html'; }
+const CURRENT_USER = JSON.parse(_raw || '{}');
+
+function logout() {
+  localStorage.removeItem('nextera_session');
+  window.location.href = 'login.html?logout=1';
+}
+
+/* ═══════════════════════════════════════════════
+   SEEDED RNG — reproducible per-user stats
+═══════════════════════════════════════════════ */
+function hashCode(str) {
+  let h = 2166136261;
+  for (const c of str) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+  return h >>> 0;
+}
+function seededRand(seed) {
+  return () => { seed = (seed * 1664525 + 1013904223) >>> 0; return seed / 4294967296; };
+}
+
+/* Use stored stats if they exist, else generate from email seed */
+const S = CURRENT_USER.stats || (function() {
+  const r   = seededRand(hashCode(CURRENT_USER.email || 'guest'));
+  const totalTrips  = 20 + Math.round(r() * 180);
+  const totalKm     = totalTrips * (8 + r() * 18);
+  const co2Saved    = +(totalKm * (0.12 + r() * 0.08)).toFixed(1);
+  const moneySaved  = Math.round(totalKm * (12 + r() * 10));
+  const streak      = 1 + Math.round(r() * 15);
+  const level       = Math.min(10, 1 + Math.floor(totalTrips / 25));
+  const xp          = Math.round(totalTrips * (40 + r() * 20));
+  const rankPct     = Math.round(60 + r() * 38);
+  const co2Month    = +(co2Saved * (0.08 + r() * 0.07)).toFixed(1);
+  const totalHrs    = Math.round(totalKm * (0.1 + r() * 0.05));
+  const trees       = Math.max(1, Math.round(co2Saved / 11.4));
+  const lvlNames    = ['Seedling','Green Starter','Eco Rider','Clean Commuter','Eco Warrior',
+                       'Carbon Crusher','Green Hero','Planet Defender','Eco Legend','Clean Energy God'];
+  return {
+    totalTrips, totalKm: Math.round(totalKm), co2Saved, co2Month,
+    moneySaved, streak, bestStreak: streak + Math.round(r() * 10),
+    level, xp, xpMax: Math.max(xp + 300, level * 500),
+    rankPct, lvlName: lvlNames[level - 1], totalHrs, trees
+  };
+})();
+
+/* ═══════════════════════════════════════════════
+   BUILD PERSONAL DATA FROM SEED
+═══════════════════════════════════════════════ */
+const r2 = seededRand(hashCode((CURRENT_USER.email || 'guest') + '_v2'));
+
+const DATA = {
+  co2Saved:   S.co2Saved,
+  co2Month:   S.co2Month,
+  moneySaved: S.moneySaved,
+  trees:      S.trees,
+  rankPct:    S.rankPct,
+  streak:     S.streak,
+  level:      S.level,
+  xp:         S.xp,
+  xpMax:      S.xpMax,
+  lvlName:    S.lvlName,
+  totalTrips: S.totalTrips,
+  totalKm:    S.totalKm,
+  totalHrs:   S.totalHrs,
+  bestStreak: S.bestStreak,
+};
+
+/* Generate personal monthly CO2 trend */
+const MONTHS = ['Jun','Jul','Aug','Sep','Oct','Nov'];
+const CARBON_MONTHLY = MONTHS.map((_, i) => {
+  const base = S.co2Month * (0.3 + i * 0.14);
+  return +(base * (0.9 + r2() * 0.2)).toFixed(1);
+});
+
+/* Generate personal mode breakdown */
+const MODE_POOL = [
+  { label:'Delhi Metro',   color:'#60a5fa', cls:'mode-metro'   },
+  { label:'Electric Bus',  color:'#34d399', cls:'mode-bus'     },
+  { label:'Yulu Bike',     color:'#a78bfa', cls:'mode-bike'    },
+  { label:'Ola EV',        color:'#0bc584', cls:'mode-ev'      },
+  { label:'Walk',          color:'#f472b6', cls:'mode-walk'    },
+  { label:'E-Scooter',     color:'#f59e0b', cls:'mode-scooter' },
+];
+const total_trips = S.totalTrips;
+let rem = total_trips;
+const MODE_DATA = MODE_POOL.map((m, i) => {
+  if (i === MODE_POOL.length - 1) return { ...m, value: rem };
+  const v = Math.max(1, Math.round((0.1 + r2() * 0.25) * total_trips));
+  rem -= v;
+  return { ...m, value: Math.max(1, v) };
+});
+
+/* Generate personal trips list */
+const ROUTE_PAIRS = [
+  ['Connaught Place','Cyber City'], ['Lajpat Nagar','Nehru Place'],
+  ['Dwarka','Janakpuri'],           ['Noida Sec 18','Greater Kailash'],
+  ['Rohini','Pitampura'],           ['Saket','Vasant Kunj'],
+  ['Gurgaon Sec 29','Huda City Ctr'],['Okhla','Shahdara'],
+];
+const MODE_KEYS = ['metro','bus','bike','ev','walk','scooter'];
+const DAYS = ['24 Nov','23 Nov','22 Nov','21 Nov','20 Nov','19 Nov','18 Nov','17 Nov'];
+const r3 = seededRand(hashCode((CURRENT_USER.email || 'guest') + '_trips'));
+const TRIPS = DAYS.map((date, i) => {
+  const [from, to] = ROUTE_PAIRS[i];
+  const mode = MODE_KEYS[Math.floor(r3() * MODE_KEYS.length)];
+  const km   = +(2 + r3() * 26).toFixed(0);
+  const co2  = +(km * (0.1 + r3() * 0.1)).toFixed(2);
+  const saved = Math.round(km * (10 + r3() * 15));
+  const aqi  = Math.round(30 + r3() * 100);
+  return { date, from, to, mode, km, co2, saved, aqi };
+});
+
+/* Generate personal challenges */
+const r4 = seededRand(hashCode((CURRENT_USER.email || 'guest') + '_ch'));
+const CHALLENGES = [
+  { id:'week-warrior',  emoji:'🗓️', title:'Week Warrior',      desc:'Take eco-friendly transport 7 days in a row.',      total:7,     color:'var(--good)',   xp:200, badge:'🗓️ Week Warrior' },
+  { id:'carbon-crusher',emoji:'💨', title:'Carbon Crusher',     desc:'Save 50 kg of CO₂ in a single month.',              total:50,    color:'var(--blue)',   xp:300, badge:'💨 Carbon Crusher' },
+  { id:'metro-master',  emoji:'🚇', title:'Metro Master',       desc:'Take the metro 50 times total.',                    total:50,    color:'var(--blue)',   xp:250, badge:'🚇 Metro Master' },
+  { id:'bike-explorer', emoji:'🚲', title:'Bike Explorer',      desc:'Cover 100 km on bike/cycle share.',                 total:100,   color:'var(--purple)', xp:350, badge:'🚲 Bike Explorer' },
+  { id:'zero-emission', emoji:'🌱', title:'Zero Emission Day',  desc:'Complete a full day using only walk, cycle or metro.',total:10,   color:'var(--good)',   xp:150, badge:'🌱 Clean Day' },
+  { id:'fortnight-hero',emoji:'🏆', title:'Fortnight Hero',     desc:'Maintain a 14-day eco-travel streak.',              total:14,    color:'var(--gold)',   xp:500, badge:'🏆 Fortnight Hero' },
+  { id:'saver-elite',   emoji:'💰', title:'Saver Elite',        desc:'Save ₹50,000 total compared to auto/taxi.',         total:50000, color:'var(--mod)',    xp:400, badge:'💰 Saver Elite' },
+  { id:'night-owl',     emoji:'🦉', title:'Night Owl Eco',      desc:'Take eco transport after 9 PM on 5 occasions.',     total:5,     color:'var(--purple)', xp:200, badge:'🦉 Night Owl' },
+].map(c => {
+  const rawProg = r4() * c.total * 1.3;
+  const progress = Math.min(rawProg, c.total);
+  const status = progress >= c.total ? 'done' : rawProg < c.total * 0.05 ? 'locked' : 'active';
+  return { ...c, progress, status };
+});
+
+/* Dynamic badges based on challenges */
+const BADGES = [
+  { icon:'🌱', name:'First Trip',     desc:'Completed your first eco trip',      earned: S.totalTrips >= 1 },
+  { icon:'🗓️', name:'Week Warrior',   desc:'7-day eco streak',                   earned: S.streak >= 7 },
+  { icon:'🚇', name:'Metro Master',   desc:'50 metro rides',                     earned: (MODE_DATA.find(m=>m.label==='Delhi Metro')?.value||0) >= 50 },
+  { icon:'💨', name:'Carbon Crusher', desc:'Save 50 kg CO₂ in a month',          earned: S.co2Month >= 50 },
+  { icon:'🚲', name:'Bike Explorer',  desc:'100 km on bike share',               earned: S.totalKm >= 400 },
+  { icon:'🏆', name:'Fortnight Hero', desc:'14-day eco streak',                  earned: S.bestStreak >= 14 },
+  { icon:'💰', name:'Saver Elite',    desc:'Save ₹50,000 vs. driving',           earned: S.moneySaved >= 50000 },
+  { icon:'🌍', name:'Planet Champion',desc:'Save 500 kg CO₂ total',              earned: S.co2Saved >= 500 },
+  { icon:'⚡', name:'EV Enthusiast',  desc:'20 EV rideshare trips',              earned: (MODE_DATA.find(m=>m.label==='Ola EV')?.value||0) >= 20 },
+  { icon:'🦶', name:'Walk the Talk',  desc:'Walk 50 km total',                   earned: S.totalKm >= 200 },
+  { icon:'🌙', name:'Night Owl Eco',  desc:'5 late-night eco trips',             earned: false },
+  { icon:'🏙️', name:'City Cleaner',  desc:'Top 10% green in your city',         earned: S.rankPct >= 90 },
+];
+
+/* ═══════════════════════════════════════════════
+   ANIMATED COUNTER
+═══════════════════════════════════════════════ */
+function animateCounter(el, target, duration = 1800, prefix = '', suffix = '', decimals = 0) {
+  const start = performance.now();
+  const update = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+    const val = ease * target;
+    el.textContent = prefix + (decimals > 0 ? val.toFixed(decimals) : Math.round(val).toLocaleString('en-IN')) + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER TRIPS TABLE
+═══════════════════════════════════════════════ */
+function renderTrips() {
+  const modeIcons  = { metro:'🚇', bus:'🚌', bike:'🚲', ev:'⚡', walk:'🚶', scooter:'🛴' };
+  const modeLabels = { metro:'Metro', bus:'Electric Bus', bike:'Yulu Bike', ev:'Ola EV', walk:'Walk', scooter:'E-Scooter' };
+  const aqiColor   = v => v <= 50 ? 'var(--good)' : v <= 100 ? 'var(--mod)' : 'var(--bad)';
+  document.getElementById('trips-tbody').innerHTML = TRIPS.map(t => `<tr>
+    <td style="color:var(--ink2);font-size:13px">${t.date}</td>
+    <td style="font-weight:600">${t.from} <span style="color:var(--ink3)">→</span> ${t.to}</td>
+    <td><span class="mode-pill mode-${t.mode}">${modeIcons[t.mode]} ${modeLabels[t.mode]}</span></td>
+    <td>${t.km} km</td>
+    <td class="co2-cell">-${t.co2} kg</td>
+    <td class="saved-cell">₹${t.saved.toLocaleString('en-IN')}</td>
+    <td style="color:${aqiColor(t.aqi)};font-weight:700">${t.aqi}</td>
+  </tr>`).join('');
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER CHALLENGES
+═══════════════════════════════════════════════ */
+function renderChallenges() {
+  document.getElementById('challenges-grid').innerHTML = CHALLENGES.map(c => {
+    const pct = Math.min(100, (c.progress / c.total) * 100);
+    const statusLabel = c.status==='done' ? 'Completed ✓' : c.status==='active' ? 'In Progress' : 'Locked 🔒';
+    const statusCls   = c.status==='done' ? 'status-done'  : c.status==='active' ? 'status-active'  : 'status-locked';
+    const progDisplay = c.id==='saver-elite'
+      ? `₹${Math.round(c.progress).toLocaleString('en-IN')} / ₹${c.total.toLocaleString('en-IN')}`
+      : c.id==='carbon-crusher'
+      ? `${c.progress.toFixed(1)} / ${c.total} kg`
+      : `${Math.round(c.progress)} / ${c.total}`;
+    return `<div class="challenge-card ${c.status==='done'?'completed':c.status==='locked'?'locked':''}"> 
+      <div class="challenge-top">
+        <div class="challenge-emoji" aria-hidden="true">${c.emoji}</div>
+        <div class="challenge-info"><h3>${c.title}</h3><p>${c.desc}</p></div>
+        <span class="challenge-status ${statusCls}">${statusLabel}</span>
+      </div>
+      <div class="prog-bar-wrap"><div class="prog-bar" style="width:0%;background:${c.color}" data-target="${pct.toFixed(1)}"></div></div>
+      <div class="prog-labels"><span>${progDisplay}</span><span>${Math.round(pct)}%</span></div>
+      <div class="reward-row">
+        <span>Reward:</span>
+        <span class="xp-chip">⚡ ${c.xp} XP</span>
+        <span class="badge-chip">🏅 ${c.badge}</span>
+      </div>
+    </div>`;
+  }).join('');
+  setTimeout(() => {
+    document.querySelectorAll('.prog-bar').forEach(b => { b.style.width = b.dataset.target + '%'; });
+  }, 300);
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER BADGES
+═══════════════════════════════════════════════ */
+function renderBadges() {
+  document.getElementById('badges-grid').innerHTML = BADGES.map(b =>
+    `<div class="badge-card ${b.earned?'earned':'locked'}" role="img" aria-label="${b.name}: ${b.desc}">
+      <span class="badge-icon">${b.icon}</span>
+      <b>${b.name}</b><span>${b.desc}</span>
+      ${b.earned ? '<div class="badge-earned-label">✓ Earned</div>' : ''}
+    </div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════
+   CHARTS
+═══════════════════════════════════════════════ */
+function initCarbonTrendChart() {
+  const ctx = document.getElementById('carbon-trend-chart').getContext('2d');
+  const gradient = ctx.createLinearGradient(0, 0, 0, 220);
+  gradient.addColorStop(0, 'rgba(52,211,153,.3)');
+  gradient.addColorStop(1, 'rgba(52,211,153,.0)');
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: MONTHS,
+      datasets: [{ data: CARBON_MONTHLY, borderColor:'#34d399', backgroundColor: gradient,
+        borderWidth:2.5, pointBackgroundColor:'#34d399', pointBorderColor:'#0d1117',
+        pointBorderWidth:2, pointRadius:5, pointHoverRadius:7, fill:true, tension:0.4 }]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false,
+      animation:{ duration:1200, easing:'easeOutQuart' },
+      plugins:{ legend:{ display:false },
+        tooltip:{ backgroundColor:'#1c2230', titleColor:'#e6edf3', bodyColor:'#8b949e',
+          borderColor:'#30363d', borderWidth:1, padding:10,
+          callbacks:{ label: i => `CO₂ saved: ${i.raw} kg` } } },
+      scales:{
+        x:{ grid:{ display:false }, ticks:{ color:'#8b949e', font:{ size:12, family:'Inter' } }, border:{ display:false } },
+        y:{ beginAtZero:true, grid:{ color:'rgba(255,255,255,.04)' },
+          ticks:{ color:'#8b949e', font:{ size:11, family:'Inter' }, callback: v => v+' kg' },
+          border:{ display:false } } }
+    }
+  });
+}
+
+function initModeDonutChart() {
+  const ctx = document.getElementById('mode-donut-chart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: MODE_DATA.map(m => m.label),
+      datasets: [{ data: MODE_DATA.map(m => m.value), backgroundColor: MODE_DATA.map(m => m.color),
+        borderColor:'#161b22', borderWidth:3, hoverOffset:6 }]
+    },
+    options: {
+      responsive:true, maintainAspectRatio:false, cutout:'68%',
+      animation:{ duration:1200, easing:'easeOutQuart' },
+      plugins:{ legend:{ display:false },
+        tooltip:{ backgroundColor:'#1c2230', titleColor:'#e6edf3', bodyColor:'#8b949e',
+          borderColor:'#30363d', borderWidth:1, padding:10,
+          callbacks:{ label: i => `${i.label}: ${i.raw} trips` } } }
+    }
+  });
+  document.getElementById('mode-legend').innerHTML = MODE_DATA.map(m =>
+    `<span class="chart-legend-item"><i style="background:${m.color}"></i>${m.label} (${m.value})</span>`).join('');
+}
+
+/* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
+function init() {
+  /* Fill in user identity */
+  const firstName = (CURRENT_USER.name || 'User').split(' ')[0];
+  document.getElementById('user-avatar').textContent   = CURRENT_USER.avatar || '🌿';
+  document.getElementById('user-first-name').textContent = firstName;
+  document.getElementById('page-title').innerHTML = `${firstName}'s <em>Green</em> Impact`;
+  document.getElementById('page-sub').textContent =
+    `Welcome back, ${firstName}! Every eco-friendly trip counts. Here are your personal carbon savings, travel milestones, and challenges.`;
+
+  /* Level badge */
+  document.getElementById('lvl-num').textContent  = DATA.level;
+  document.getElementById('lvl-name').textContent = DATA.lvlName;
+  document.getElementById('xp-label').textContent = `${DATA.xp.toLocaleString('en-IN')} / ${DATA.xpMax.toLocaleString('en-IN')} XP`;
+
+  /* Streak */
+  document.getElementById('streak-count').textContent = DATA.streak + '-day';
+  document.getElementById('streak-num').textContent   = DATA.streak;
+  document.getElementById('donut-center-val').textContent = DATA.totalTrips;
+
+  /* Record counters */
+  document.getElementById('total-trips').textContent    = DATA.totalTrips.toLocaleString('en-IN');
+  document.getElementById('total-km').textContent       = DATA.totalKm.toLocaleString('en-IN');
+  document.getElementById('total-hrs').textContent      = DATA.totalHrs.toLocaleString('en-IN');
+  document.getElementById('total-saved-inr').textContent= '₹' + DATA.moneySaved.toLocaleString('en-IN');
+  document.getElementById('best-streak').textContent    = DATA.bestStreak;
+
+  /* Fav mode */
+  const modeEmojis = { 'Delhi Metro':'🚇', 'Electric Bus':'🚌', 'Yulu Bike':'🚲',
+                       'Ola EV':'⚡', 'Walk':'🚶', 'E-Scooter':'🛴' };
+  const favMode = MODE_DATA.reduce((a,b) => b.value > a.value ? b : a);
+  document.getElementById('fav-mode').textContent = (modeEmojis[favMode.label]||'🚇') + ' ' + favMode.label;
+
+  /* Animated stat counters */
+  setTimeout(() => {
+    animateCounter(document.getElementById('co2-saved'),   DATA.co2Saved,   1600, '', '', 1);
+    animateCounter(document.getElementById('co2-month'),   DATA.co2Month,   1400, '', '', 1);
+    animateCounter(document.getElementById('money-saved'), DATA.moneySaved, 1800, '', '');
+    animateCounter(document.getElementById('trees'),       DATA.trees,      1200, '', '');
+    animateCounter(document.getElementById('rank-pct'),    DATA.rankPct,    1200, '', '');
+  }, 200);
+
+  /* XP bar */
+  setTimeout(() => {
+    document.getElementById('xp-bar').style.width = ((DATA.xp / DATA.xpMax) * 100) + '%';
+  }, 400);
+
+  /* Charts */
+  initCarbonTrendChart();
+  initModeDonutChart();
+
+  /* Tables & cards */
+  renderTrips();
+  renderChallenges();
+  renderBadges();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
+  co2Saved:   312.4,
+  co2Month:   47.8,
+  moneySaved: 41820,
+  trees:       27,
+  rankPct:    88,
+  streak:     12,
+  level:       7,
+  xp:         2340,
+  xpMax:      3000,
+  lvlName:    'Eco Warrior',
+  totalTrips: 187,
+  totalKm:    2341,
+  totalHrs:   312,
+  bestStreak: 18,
+};
+
+const MONTHS = ['Jun','Jul','Aug','Sep','Oct','Nov'];
+const CARBON_MONTHLY = [18.2, 24.5, 29.1, 38.7, 44.2, 47.8];
+const MODE_DATA = [
+  { label:'Delhi Metro', value:72,  color:'#60a5fa', cls:'mode-metro' },
+  { label:'Electric Bus', value:38, color:'#34d399', cls:'mode-bus'   },
+  { label:'Yulu Bike',    value:31, color:'#a78bfa', cls:'mode-bike'  },
+  { label:'Ola EV',       value:24, color:'#0bc584', cls:'mode-ev'    },
+  { label:'Walk',         value:14, color:'#f472b6', cls:'mode-walk'  },
+  { label:'E-Scooter',    value: 8, color:'#f59e0b', cls:'mode-scooter'},
+];
+const TRIPS = [
+  { date:'24 Nov', from:'Connaught Place', to:'Cyber City', mode:'metro',   km:28, co2:5.32, saved:780,  aqi:58  },
+  { date:'23 Nov', from:'Lajpat Nagar',   to:'Nehru Place', mode:'walk',   km:2,  co2:0.38, saved:120,  aqi:44  },
+  { date:'22 Nov', from:'Dwarka',         to:'Janakpuri',   mode:'bus',    km:9,  co2:1.71, saved:260,  aqi:81  },
+  { date:'21 Nov', from:'Noida Sec 18',   to:'Greater Kailash', mode:'ev', km:22, co2:4.18, saved:620,  aqi:70  },
+  { date:'20 Nov', from:'Rohini',         to:'Pitampura',   mode:'metro',  km:7,  co2:1.33, saved:195,  aqi:55  },
+  { date:'19 Nov', from:'Saket',          to:'Vasant Kunj', mode:'bike',   km:5,  co2:0.95, saved:140,  aqi:93  },
+  { date:'18 Nov', from:'Gurgaon Sec 29', to:'Huda City Ctr', mode:'metro',km:12, co2:2.28, saved:340,  aqi:102 },
+  { date:'17 Nov', from:'Okhla',          to:'Shahdara',    mode:'scooter',km:18, co2:3.42, saved:510,  aqi:65  },
+];
+const CHALLENGES = [
+  {
+    id:'week-warrior', emoji:'🗓️', title:'Week Warrior',
+    desc:'Take eco-friendly transport 7 days in a row.',
+    progress:7, total:7, status:'done',
+    xp:200, badge:'🗓️ Week Warrior',
+    color:'var(--good)'
+  },
+  {
+    id:'carbon-crusher', emoji:'💨', title:'Carbon Crusher',
+    desc:'Save 50 kg of CO₂ in a single month.',
+    progress:47.8, total:50, status:'active',
+    xp:300, badge:'💨 Carbon Crusher',
+    color:'var(--blue)'
+  },
+  {
+    id:'metro-master', emoji:'🚇', title:'Metro Master',
+    desc:'Take the metro 50 times total.',
+    progress:72, total:50, status:'done',
+    xp:250, badge:'🚇 Metro Master',
+    color:'var(--blue)'
+  },
+  {
+    id:'bike-explorer', emoji:'🚲', title:'Bike Explorer',
+    desc:'Cover 100 km on bike/cycle share.',
+    progress:62, total:100, status:'active',
+    xp:350, badge:'🚲 Bike Explorer',
+    color:'var(--purple)'
+  },
+  {
+    id:'zero-emission', emoji:'🌱', title:'Zero Emission Day',
+    desc:'Complete a full day using only walk, cycle, or metro.',
+    progress:5, total:10, status:'active',
+    xp:150, badge:'🌱 Clean Day',
+    color:'var(--good)'
+  },
+  {
+    id:'fortnight-hero', emoji:'🏆', title:'Fortnight Hero',
+    desc:'Maintain a 14-day eco-travel streak.',
+    progress:12, total:14, status:'active',
+    xp:500, badge:'🏆 Fortnight Hero',
+    color:'var(--gold)'
+  },
+  {
+    id:'saver-elite', emoji:'💰', title:'Saver Elite',
+    desc:'Save ₹50,000 total compared to auto/taxi.',
+    progress:41820, total:50000, status:'active',
+    xp:400, badge:'💰 Saver Elite',
+    color:'var(--mod)'
+  },
+  {
+    id:'night-owl', emoji:'🦉', title:'Night Owl Eco',
+    desc:'Take eco transport after 9 PM on 5 occasions.',
+    progress:0, total:5, status:'locked',
+    xp:200, badge:'🦉 Night Owl',
+    color:'var(--purple)'
+  },
+];
+const BADGES = [
+  { icon:'🌱', name:'First Trip',       desc:'Completed your first eco trip',   earned:true  },
+  { icon:'🗓️', name:'Week Warrior',     desc:'7-day eco streak',                earned:true  },
+  { icon:'🚇', name:'Metro Master',     desc:'50 metro rides',                   earned:true  },
+  { icon:'💨', name:'Carbon Crusher',   desc:'Save 50 kg CO₂ in a month',       earned:false },
+  { icon:'🚲', name:'Bike Explorer',    desc:'100 km on bike share',             earned:false },
+  { icon:'🏆', name:'Fortnight Hero',   desc:'14-day eco streak',                earned:false },
+  { icon:'💰', name:'Saver Elite',      desc:'Save ₹50,000 vs. driving',         earned:false },
+  { icon:'🌍', name:'Planet Champion',  desc:'Save 500 kg CO₂ total',            earned:false },
+  { icon:'⚡', name:'EV Enthusiast',    desc:'20 EV rideshare trips',            earned:true  },
+  { icon:'🦶', name:'Walk the Talk',    desc:'Walk 50 km total',                 earned:true  },
+  { icon:'🌙', name:'Night Owl Eco',    desc:'5 late-night eco trips',           earned:false },
+  { icon:'🏙️', name:'City Cleaner',    desc:'Top 10% green in your city',       earned:true  },
+];
+
+/* ═══════════════════════════════════════════════
+   ANIMATED COUNTER
+═══════════════════════════════════════════════ */
+function animateCounter(el, target, duration = 1800, prefix = '', suffix = '', decimals = 0) {
+  const start = performance.now();
+  const update = (now) => {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3); // ease-out cubic
+    const val = ease * target;
+    el.textContent = prefix + (decimals > 0 ? val.toFixed(decimals) : Math.round(val).toLocaleString('en-IN')) + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  };
+  requestAnimationFrame(update);
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER TRIPS TABLE
+═══════════════════════════════════════════════ */
+function renderTrips() {
+  const modeIcons = { metro:'🚇', bus:'🚌', bike:'🚲', ev:'⚡', walk:'🚶', scooter:'🛴' };
+  const modeLabels = { metro:'Metro', bus:'Electric Bus', bike:'Yulu Bike', ev:'Ola EV', walk:'Walk', scooter:'E-Scooter' };
+  const aqiColor = v => v <= 50 ? 'var(--good)' : v <= 100 ? 'var(--mod)' : 'var(--bad)';
+
+  document.getElementById('trips-tbody').innerHTML = TRIPS.map(t => `<tr>
+    <td style="color:var(--ink2);font-size:13px">${t.date}</td>
+    <td style="font-weight:600">${t.from} <span style="color:var(--ink3)">→</span> ${t.to}</td>
+    <td><span class="mode-pill mode-${t.mode}">${modeIcons[t.mode]} ${modeLabels[t.mode]}</span></td>
+    <td>${t.km} km</td>
+    <td class="co2-cell">-${t.co2} kg</td>
+    <td class="saved-cell">₹${t.saved.toLocaleString('en-IN')}</td>
+    <td style="color:${aqiColor(t.aqi)};font-weight:700">${t.aqi}</td>
+  </tr>`).join('');
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER CHALLENGES
+═══════════════════════════════════════════════ */
+function renderChallenges() {
+  document.getElementById('challenges-grid').innerHTML = CHALLENGES.map(c => {
+    const pct = Math.min(100, (c.progress / c.total) * 100);
+    const statusLabel = c.status === 'done' ? 'Completed ✓' : c.status === 'active' ? 'In Progress' : 'Locked 🔒';
+    const statusCls   = c.status === 'done' ? 'status-done' : c.status === 'active' ? 'status-active' : 'status-locked';
+    const progDisplay = c.id === 'saver-elite'
+      ? `₹${Math.round(c.progress).toLocaleString('en-IN')} / ₹${c.total.toLocaleString('en-IN')}`
+      : c.id === 'carbon-crusher'
+      ? `${c.progress} / ${c.total} kg`
+      : `${Math.round(c.progress)} / ${c.total}`;
+
+    return `<div class="challenge-card ${c.status === 'done' ? 'completed' : c.status === 'locked' ? 'locked' : ''}" data-pct="${pct}" data-color="${c.color}">
+      <div class="challenge-top">
+        <div class="challenge-emoji" aria-hidden="true">${c.emoji}</div>
+        <div class="challenge-info">
+          <h3>${c.title}</h3>
+          <p>${c.desc}</p>
+        </div>
+        <span class="challenge-status ${statusCls}">${statusLabel}</span>
+      </div>
+      <div class="prog-bar-wrap">
+        <div class="prog-bar" style="width:0%;background:${c.color}" data-target="${pct}"></div>
+      </div>
+      <div class="prog-labels"><span>${progDisplay}</span><span>${Math.round(pct)}%</span></div>
+      <div class="reward-row">
+        <span>Reward:</span>
+        <span class="xp-chip">⚡ ${c.xp} XP</span>
+        <span class="badge-chip">🏅 ${c.badge}</span>
+      </div>
+    </div>`;
+  }).join('');
+
+  // Animate progress bars after render
+  setTimeout(() => {
+    document.querySelectorAll('.prog-bar').forEach(bar => {
+      const target = bar.dataset.target;
+      bar.style.width = target + '%';
+    });
+  }, 300);
+}
+
+/* ═══════════════════════════════════════════════
+   RENDER BADGES
+═══════════════════════════════════════════════ */
+function renderBadges() {
+  document.getElementById('badges-grid').innerHTML = BADGES.map(b => `
+    <div class="badge-card ${b.earned ? 'earned' : 'locked'}" role="img" aria-label="${b.name}: ${b.desc}">
+      <span class="badge-icon">${b.icon}</span>
+      <b>${b.name}</b>
+      <span>${b.desc}</span>
+      ${b.earned ? '<div class="badge-earned-label">✓ Earned</div>' : ''}
+    </div>`).join('');
+}
+
+/* ═══════════════════════════════════════════════
+   CHARTS
+═══════════════════════════════════════════════ */
+function initCarbonTrendChart() {
+  const ctx = document.getElementById('carbon-trend-chart').getContext('2d');
+  const gradient = ctx.createLinearGradient(0, 0, 0, 220);
+  gradient.addColorStop(0, 'rgba(52,211,153,.3)');
+  gradient.addColorStop(1, 'rgba(52,211,153,.0)');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: MONTHS,
+      datasets: [{
+        data: CARBON_MONTHLY,
+        borderColor: '#34d399',
+        backgroundColor: gradient,
+        borderWidth: 2.5,
+        pointBackgroundColor: '#34d399',
+        pointBorderColor: '#0d1117',
+        pointBorderWidth: 2,
+        pointRadius: 5,
+        pointHoverRadius: 7,
+        fill: true,
+        tension: 0.4
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      animation: { duration: 1200, easing: 'easeOutQuart' },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1c2230',
+          titleColor: '#e6edf3', bodyColor: '#8b949e',
+          borderColor: '#30363d', borderWidth: 1, padding: 10,
+          callbacks: { label: i => `CO₂ saved: ${i.raw} kg` }
+        }
+      },
+      scales: {
+        x: {
+          grid: { display: false },
+          ticks: { color: '#8b949e', font: { size: 12, family: 'Inter' } },
+          border: { display: false }
+        },
+        y: {
+          beginAtZero: true,
+          grid: { color: 'rgba(255,255,255,.04)' },
+          ticks: { color: '#8b949e', font: { size: 11, family: 'Inter' }, callback: v => v + ' kg' },
+          border: { display: false }
+        }
+      }
+    }
+  });
+}
+
+function initModeDonutChart() {
+  const ctx = document.getElementById('mode-donut-chart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: MODE_DATA.map(m => m.label),
+      datasets: [{
+        data: MODE_DATA.map(m => m.value),
+        backgroundColor: MODE_DATA.map(m => m.color),
+        borderColor: '#161b22',
+        borderWidth: 3,
+        hoverOffset: 6
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      cutout: '68%',
+      animation: { duration: 1200, easing: 'easeOutQuart' },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#1c2230',
+          titleColor: '#e6edf3', bodyColor: '#8b949e',
+          borderColor: '#30363d', borderWidth: 1, padding: 10,
+          callbacks: { label: i => `${i.label}: ${i.raw} trips` }
+        }
+      }
+    }
+  });
+
+  // Legend
+  document.getElementById('mode-legend').innerHTML = MODE_DATA.map(m =>
+    `<span class="chart-legend-item"><i style="background:${m.color}"></i>${m.label} (${m.value})</span>`
+  ).join('');
+}
+
+/* ═══════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════ */
+function init() {
+  // Animated counters
+  setTimeout(() => {
+    animateCounter(document.getElementById('co2-saved'),   DATA.co2Saved,   1600, '', '', 1);
+    animateCounter(document.getElementById('co2-month'),   DATA.co2Month,   1400, '', '', 1);
+    animateCounter(document.getElementById('money-saved'), DATA.moneySaved, 1800, '', '');
+    animateCounter(document.getElementById('trees'),       DATA.trees,      1200, '', '');
+    animateCounter(document.getElementById('rank-pct'),    DATA.rankPct,    1200, '', '');
+  }, 200);
+
+  // XP bar
+  setTimeout(() => {
+    document.getElementById('xp-bar').style.width = ((DATA.xp / DATA.xpMax) * 100) + '%';
+  }, 400);
+
+  // Static labels
+  document.getElementById('streak-count').textContent = DATA.streak + '-day';
+  document.getElementById('streak-num').textContent   = DATA.streak;
+  document.getElementById('xp-label').textContent     = `${DATA.xp.toLocaleString('en-IN')} / ${DATA.xpMax.toLocaleString('en-IN')} XP`;
+  document.getElementById('donut-center-val').textContent = DATA.totalTrips;
+
+  // Charts
+  initCarbonTrendChart();
+  initModeDonutChart();
+
+  // Render tables & cards
+  renderTrips();
+  renderChallenges();
+  renderBadges();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
